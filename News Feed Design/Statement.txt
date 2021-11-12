@@ -1,0 +1,9 @@
+Design a News Feed System
+- mobile and web app
+- ability to post and see friend's news Feed
+- Feed is sorted in reverse chrono order
+- Atmost 5000 friends a user can have
+- Traffic volume : 10 million daily active users (DAU)
+- Media files, images and videos
+
+> get a buy-in, draw clients, apis, web servers, data stores, cache, cdn, queue, etc
