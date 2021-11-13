@@ -1,0 +1,5 @@
+It is important to distribute load evenly to achieve horizontal scaling
+Say we have N cache servers, then we can get serverIndex as Hash(key) % N.
+It works well if server pool size is fixed but not if server is either added or removed.
+Most of the keys will get redistributed and not just the removed server (since N -> N-1).
+This increases Cache miss rate and puts heavy load on each cache server.

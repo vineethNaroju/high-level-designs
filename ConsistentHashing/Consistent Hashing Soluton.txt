@@ -1,0 +1,24 @@
+A special hash table on resizing will only need k/n keys to be remapped on average
+k is number of keys and n is number of slots.
+
+- Say we use SHA-1 ( 0 to 2^160 - 1) and we map servers to a circular array.
+- Say we have s0 -> s1 -> s2 -> s3 -> s0 and s0 is present at some array index
+- Hashing keys k0, k1, k2 and k3 results in :
+    k0 -> s0 -> k1 -> s1 -> k2 -> s2 -> k3 -> s3 -> k0
+- To find a server, we travel ahead and find the nearest immediate server.
+
+- If we add a server s4 ( at some index ) before s0, then we only need to re-distribute
+    all the keys ahead of s4 and before s3, from s0 to s4.
+- If we remove a server s2, then we need to re-distribute all the keys ahead of s2 and before s1,
+    from s2 to s3. 
+- It's hard to keep same size of partitions on the ring for all servers (add / remove).
+- It's possible to have non-uniform distribution of keys, leading to most of the keys mapped
+to single server.
+
+- We can use multiple virtual nodes on ring to represent a single server.
+- As number of virtual nodes increase, the key distribution becomes uniform.
+
+- Mitigate hotspot key problem by distributing load evenly across servers.
+- Used in partitioning component of DynamoDB
+- Data partitioning across cluster in Cassandra
+- Discord chat app, Akamai CDN, Maglev Network LB.
